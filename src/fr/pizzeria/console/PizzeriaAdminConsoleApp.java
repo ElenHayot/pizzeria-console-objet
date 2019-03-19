@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 import java.util.Scanner;
+import dao.*;
 
 public class PizzeriaAdminConsoleApp {
 
@@ -8,21 +9,8 @@ public class PizzeriaAdminConsoleApp {
 		Scanner sc = new Scanner(System.in);
 		int valeur = 0;
 
-//Définition de la liste des pizzas
-		int l=8;
-		Pizza[] tableauPizza = new Pizza[100];
-		
-		tableauPizza[0]= new Pizza("PEP", "Pépéroni", 12.50);
-		tableauPizza[1] = new Pizza("MAR", "Margherita", 14.00);
-		tableauPizza[2] = new Pizza("REIN", "La Reine", 11.50);
-		tableauPizza[3] = new Pizza("FRO", "La 4 fromages", 12.00);
-		tableauPizza[4] = new Pizza("CAN", "La Cannibale", 12.50);
-		tableauPizza[5] = new Pizza("SAV", "La Savoyarde", 13.00);
-		tableauPizza[6] = new Pizza("ORI", "L'Orientale", 13.50);
-		tableauPizza[7] = new Pizza("IND", "L'Indienne", 14.00);
-		
-
-	
+//La classe PizzaMemDao est une base de données et elle permet de modifier cette base de données
+		PizzaMemDao pizza = new PizzaMemDao();
 
 //*************************************************************************************//
 //*************************************************************************************//
@@ -39,17 +27,28 @@ public class PizzeriaAdminConsoleApp {
 		valeur = sc.nextInt();
 		
 			switch(valeur){
+			
 			//*************************************************************************************//
-			//Cas 1: aafficher les pizza: appelle de la méthode afficherPizza()
+			
+			//Cas 1: afficher les pizza: appelle de la méthode afficherPizza()
 			case 1: 
 				System.out.println("\nListe des pizzas");
-				for(int i=0; i<l; i++){
-					Pizza id = tableauPizza[i];
-					Pizza.afficherPizza(id);
+
+					//je récupère le tableau que me retourne la méthode findAllPizzas()
+				Pizza[] tabPizzas = pizza.findAllPizzas();
+	
+					//affichage du tableau
+				for (int i=0; i<tabPizzas.length; i++){
+					if(tabPizzas[i] != null){	//afin d'empêcher d'afficher 100 lignes null...
+						System.out.println(tabPizzas[i]);
+					}else{break;}
 				}
+				
 				break;
+				
 			//*************************************************************************************//
-			//Cas 2: Ajouter uen nouvelle pizza
+				
+			//Cas 2: Ajouter une nouvelle pizza
 			case 2:
 				System.out.println("\nAjout d'une nouvelle pizza");
 				System.out.println("Veuillez saisir le code: ");
@@ -59,13 +58,16 @@ public class PizzeriaAdminConsoleApp {
 				String nomPizza = sc.nextLine();
 				System.out.println("Veuillez saisir le prix: ");
 				String pP = sc.nextLine();
-				//transformation String en double
+					//transformation String en double
 				double prixPizza = Double.parseDouble(pP);
-				//Rajout de la pizza à la prochaine ligne du tableau en tant que l-ième élément
-				tableauPizza[l] = new Pizza(codePizza, nomPizza, prixPizza);
-				l++;
+				Pizza newPizza = new Pizza(codePizza, nomPizza, prixPizza);
+				
+					//j'applique la méthode de rajout d'une nouvelle pizza				 
+				pizza.saveNewPizza(newPizza); 
 				break;
+				
 			//*************************************************************************************//
+				
 			//Cas 3: Mise à jour d'une pizza
 			case 3:	
 				System.out.println("\nMise à jour d'une pizza");
@@ -79,44 +81,23 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Veuillez saisir le nouveau prix: ");
 				String nvP = sc.nextLine();
 				double nvPrix = Double.parseDouble(nvP);
-				//comparaison (String,String) avec equals et une réponse boolean
-				boolean compare = false;
-				//le compteur sert à retrouver le rang de la pizza dans le tableau
-				int compteur = 0;
-				for(int i=0; i<l; i++){
-					compare = codePAM.equals(tableauPizza[i].code);
-					if(compare==true){
-						break;
-					}
-					compteur++;
-				}
-				//correction des paramètres de la pizza
-				tableauPizza[compteur] = new Pizza(nvCode, nvNom, nvPrix);
+
+					//correction des paramètres de la pizza
+				newPizza = new Pizza(nvCode, nvNom, nvPrix);
+				pizza.updatePizza(codePAM, newPizza);
 				break;
+				
 			//*************************************************************************************//
+				
 			//Cas 4: Suppression d'une pizza
 			case 4:
 				System.out.println("\nSuppression d'une pizza");
 				System.out.println("Veuillez choisir le code de la pizza à supprimer: ");
 				sc.nextLine();
 				String codePAS = sc.nextLine();
-				compare = false;
-				compteur = 0;
-				for(int i=0; i<l; i++){
-					compare = codePAS.equals(tableauPizza[i].code);
-					if(compare==true){
-						break;	//sortie de la boucle for dès que boolean=true pour que le compteur s'arrête
-					}
-					compteur++;
-				}
-				//décalage des derniers éléments du tableau vers le premier afin de ne pas avoir de trou dans le tableau
-				for(int i=compteur; i<l-1; i++){
-					tableauPizza[i] = tableauPizza[i+1];
-				}
-				//suppression du dernier élément du tableau (autrement doublon du dernier élément)
-				tableauPizza[l-1] = null;
-				//il y a un élément en moins donc l devient l-1
-				l--;
+				
+					//j'applique la méthode de suppression de pizza de la classe PizzaMemDao
+				pizza.deletePizza(codePAS);
 				break;
 			}
 		}
