@@ -1,11 +1,9 @@
 package dao;
 
-import java.util.Scanner;
 import fr.pizzeria.console.Pizza;
 
 public class PizzaMemDao implements IPizzaDao {
 	
-	Scanner sc = new Scanner(System.in);
 	int l=8;
 	private Pizza[] tableauPizza = new Pizza[100];
 	
