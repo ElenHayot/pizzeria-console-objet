@@ -1,5 +1,6 @@
 package fr.pizzeria.console;
 
+import fr.pizzeria.exception.*;
 import java.util.Scanner;
 import dao.*;
 
@@ -51,7 +52,11 @@ public class PizzeriaAdminConsoleApp {
 			// Cas 2: Ajouter une nouvelle pizza
 			case 2:
 				System.out.println("\nAjout d'une nouvelle pizza");
-				ajoutPizza.executeUC();
+				try{
+					ajoutPizza.executeUC();
+				}catch(SavePizzaException e){
+					System.out.println(e.getMessage());
+				}
 
 				break;
 
@@ -60,7 +65,11 @@ public class PizzeriaAdminConsoleApp {
 			// Cas 3: Mise à jour d'une pizza
 			case 3:
 				System.out.println("\nMise à jour d'une pizza");
-				modifPizza.executeUC();
+				try{
+					modifPizza.executeUC();
+				}catch(UpdatePizzaException e){
+					System.out.println(e.getMessage());
+				}
 
 				break;
 
@@ -69,7 +78,10 @@ public class PizzeriaAdminConsoleApp {
 			// Cas 4: Suppression d'une pizza
 			case 4:
 				System.out.println("\nSuppression d'une pizza");
-				supprPizza.executeUC();
+				try{supprPizza.executeUC();
+				}catch(DeletePizzaException e){
+					System.out.println(e.getMessage());
+				}
 
 				break;
 			}

@@ -8,14 +8,14 @@ public class PizzaMemDao implements IPizzaDao {
 	private Pizza[] tableauPizza = new Pizza[100];
 	
 	public PizzaMemDao(){
-		tableauPizza[0]= new Pizza("PEP", "Pépéroni", 12.50);
-		tableauPizza[1] = new Pizza("MAR", "Margherita", 14.00);
-		tableauPizza[2] = new Pizza("REIN", "La Reine", 11.50);
-		tableauPizza[3] = new Pizza("FRO", "La 4 fromages", 12.00);
-		tableauPizza[4] = new Pizza("CAN", "La Cannibale", 12.50);
-		tableauPizza[5] = new Pizza("SAV", "La Savoyarde", 13.00);
-		tableauPizza[6] = new Pizza("ORI", "L'Orientale", 13.50);
-		tableauPizza[7] = new Pizza("IND", "L'Indienne", 14.00);
+		tableauPizza[0]= new Pizza("PEP", "Pépéroni", "Viande", 12.50);
+		tableauPizza[1] = new Pizza("MAR", "Margherita", "Sans Viande", 14.00);
+		tableauPizza[2] = new Pizza("REIN", "La Reine", "Viande", 11.50);
+		tableauPizza[3] = new Pizza("FRO", "La 4 fromages", "Sans Viande", 12.00);
+		tableauPizza[4] = new Pizza("CAN", "La Cannibale", "Viande", 12.50);
+		tableauPizza[5] = new Pizza("SAV", "La Savoyarde", "Poisson", 13.00);
+		tableauPizza[6] = new Pizza("ORI", "L'Orientale", "Poisson", 13.50);
+		tableauPizza[7] = new Pizza("IND", "L'Indienne", "Sans Viande", 14.00);
 	}
 
 //*********************************************************************************************//
@@ -33,7 +33,7 @@ public class PizzaMemDao implements IPizzaDao {
 	public void saveNewPizza(Pizza pizza) {
 		
 			//Rajout de la pizza à la prochaine ligne du tableau en tant que l-ième élément
-		tableauPizza[l] = new Pizza(pizza.getCode(), pizza.getLibelle(), pizza.getPrix());
+		tableauPizza[l] = new Pizza(pizza.getCode(), pizza.getLibelle(), pizza.getCategorie(), pizza.getPrix());
 		l++;
 		
 	}
@@ -103,7 +103,12 @@ public class PizzaMemDao implements IPizzaDao {
 	
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		// TODO Auto-generated method stub
+		
+		for(int i=0; i<l; i++){
+			if(tableauPizza[i].getCode().equals(codePizza)){
+				return true;
+			}
+		}
 		return false;
 	}
 

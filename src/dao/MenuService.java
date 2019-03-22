@@ -1,13 +1,12 @@
 package dao;
 
+import fr.pizzeria.exception.StockageException;
+
 public abstract class MenuService {
 
 	PizzaMemDao dao;
 	
-	
-	
-	abstract void executeUC();
-
+	public abstract void executeUC() throws StockageException;
 
 
 	public PizzaMemDao getDao() {
@@ -15,9 +14,9 @@ public abstract class MenuService {
 	}
 
 
-
 	public void setDao(PizzaMemDao dao) {
 		this.dao = dao;
 	}
+	
 	
 }

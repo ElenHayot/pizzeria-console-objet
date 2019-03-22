@@ -1,9 +1,18 @@
 package fr.pizzeria.console;
 
+import fr.pizzeria.utils.*;
+
 public class Pizza {
 	private int id;
+	//rajout des paramètres before et after pour demander une certaine mise en page
+	@ToString(before="* ", after="  ")	
 	private String code;
+	@ToString(before=" -> ", uppercase=false)
 	private String libelle;
+	@ToString(before=", Cat ")
+	private String categorie;
+	@ToString(before=" : ", after=" €")
+	@Rule(min=0)
 	private double prix;
 	
 	private static int cpt = 0;
@@ -19,10 +28,11 @@ public class Pizza {
 	 * @param prix 
 	 * 		prix de la pizza
 	 */
-	public Pizza(String code, String libelle, double prix) {
+	public Pizza(String code, String libelle, String categorie, double prix) {
 		this.id = cpt++;
 		this.code = code;
 		this.libelle = libelle;
+		this.categorie = categorie;
 		this.prix = prix;
 	}
 
@@ -39,10 +49,11 @@ public class Pizza {
 	 * @param 
 	 * 		prix prix de la pizza
 	 */
-	public Pizza(int id, String code, String libelle, double prix) {
+	public Pizza(int id, String code, String libelle, String categorie, double prix) {
 		this.id = id;
 		this.code = code;
 		this.libelle = libelle;
+		this.categorie = categorie;
 		this.prix = prix;
 	}
 	
@@ -58,8 +69,12 @@ public class Pizza {
 	}
 	
 //override (redéfinition) de la méthode toString()
+
 	public String toString(){
-		return code + " -> " + libelle + " (" + prix + " €)";
+		//Appel de la méthode stringUtils de la classe StringUtil
+		StringUtils stringUtils = new StringUtils();
+		return stringUtils.stringUtils(this);
+		//return code + " -> " + libelle + " (" + prix + " €)";
 	}
 
 //construction getter et setter
@@ -95,6 +110,14 @@ public class Pizza {
 		this.libelle = libelle;
 	}
 
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+
+	public String getCategorie() {
+		return categorie;
+	}
+	
 	public double getPrix() {
 		return prix;
 	}

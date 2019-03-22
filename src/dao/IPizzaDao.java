@@ -1,5 +1,4 @@
 package dao;
-
 import fr.pizzeria.console.Pizza;
 
 public interface IPizzaDao {
