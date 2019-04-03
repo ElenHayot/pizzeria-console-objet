@@ -1,12 +1,15 @@
 package dao;
 
 import fr.pizzeria.console.Pizza;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.sql.SQLException;
 
 public class PizzaJdbcDao implements IPizzaDao {
@@ -33,8 +36,13 @@ public class PizzaJdbcDao implements IPizzaDao {
 	public Pizza[] findAllPizzas() {
 		
 		List<Pizza> listePizzas = new ArrayList<>();
+		//InputStream input = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
+		//Properties property = new Properties();
+		
 		
 		try{
+			//connect = DriverManager.getConnection(property.getProperty("jdbcUrl"), property.getProperty("id"), property.getProperty("password"));
+			//property.load(input);
 			connect = DriverManager.getConnection(jdbcUrl, "root", "");
 			statement = connect.prepareStatement("select * from pizzas");
 			ResultSet result = statement.executeQuery();
@@ -49,10 +57,13 @@ public class PizzaJdbcDao implements IPizzaDao {
 			}
 			result.close();
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
+			System.out.println("Problème de communication avec la base de données");
+		}/*catch(IOException e){
 			e.getMessage();
-		}
+		}*/
 		
 		Pizza[] tab = new Pizza[listePizzas.size()];
 		tab = listePizzas.toArray(tab);
@@ -75,6 +86,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			statement.execute();
 			
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
 			e.getMessage();
@@ -97,6 +109,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			statement.executeUpdate();
 			
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
 			e.getMessage();
@@ -115,6 +128,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			statement.execute();
 			
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
 			e.getMessage();
@@ -136,7 +150,9 @@ public class PizzaJdbcDao implements IPizzaDao {
 			pizzaFindIt = new Pizza(result.getString("ID"), result.getString("NAME"), 
 					result.getString("CATEGORY"), result.getDouble("PRICE"));
 			
+			result.close();
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
 			e.getMessage();
@@ -163,6 +179,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			
 			result.close();
 			statement.close();
+			connect.close();
 			
 		}catch(SQLException e){
 			e.getMessage();
