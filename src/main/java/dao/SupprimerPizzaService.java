@@ -12,7 +12,7 @@ public class SupprimerPizzaService extends MenuService {
 	public void executeUC() throws DeletePizzaException{
 		
 		System.out.println("Veuillez choisir le code de la pizza à supprimer: ");
-		String codePAS = sc.nextLine();
+		String codePAS = sc.nextLine().toUpperCase();
 		
 		Boolean retour = dao.pizzaExists(codePAS);
 		

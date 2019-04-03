@@ -9,7 +9,8 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		PizzaMemDao dao = new PizzaMemDao();
+		//IPizzaDao dao = new PizzaMemDao();
+		IPizzaDao dao = new PizzaJdbcDao();
 		int valeur = 0;
 
 		// *************************************************************************************//

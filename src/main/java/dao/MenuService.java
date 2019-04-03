@@ -4,17 +4,17 @@ import fr.pizzeria.exception.StockageException;
 
 public abstract class MenuService {
 
-	PizzaMemDao dao;
+	IPizzaDao dao;
 	
 	public abstract void executeUC() throws StockageException;
 
 
-	public PizzaMemDao getDao() {
+	public IPizzaDao getDao() {
 		return dao;
 	}
 
 
-	public void setDao(PizzaMemDao dao) {
+	public void setDao(IPizzaDao dao) {
 		this.dao = dao;
 	}
 	

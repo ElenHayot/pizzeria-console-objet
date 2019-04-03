@@ -13,7 +13,8 @@ public class AjouterPizzaService extends MenuService{
 	public void executeUC() throws SavePizzaException {
 		
 		System.out.println("Veuillez saisir le code: ");
-		String codePizza = sc.nextLine();	
+		String codePizza = sc.nextLine().toUpperCase();	
+		
 		if(codePizza.length() <= 1){
 			throw new SavePizzaException("Veuillez saisir un code avec au moins deux caractères");
 		}

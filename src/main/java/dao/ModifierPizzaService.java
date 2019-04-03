@@ -11,7 +11,7 @@ public class ModifierPizzaService extends MenuService {
 	@Override
 	public void executeUC() throws UpdatePizzaException{
 		System.out.println("Veuillez choisir le code de la pizza à modifier: ");
-		String codePAM = sc.nextLine();
+		String codePAM = sc.nextLine().toUpperCase();
 		
 		Boolean retour = dao.pizzaExists(codePAM);
 		
@@ -20,7 +20,7 @@ public class ModifierPizzaService extends MenuService {
 		}
 		
 		System.out.println("Veuillez saisir le nouveau code: ");
-		String nvCode = sc.nextLine();
+		String nvCode = sc.nextLine().toUpperCase();
 		
 		if(nvCode.length() <= 1){
 			throw new UpdatePizzaException("Veuillez saisir un code avec au moins deux caractères");
