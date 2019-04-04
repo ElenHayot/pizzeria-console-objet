@@ -1,15 +1,12 @@
 package dao;
 
 import fr.pizzeria.console.Pizza;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.sql.SQLException;
 
 public class PizzaJdbcDao implements IPizzaDao {

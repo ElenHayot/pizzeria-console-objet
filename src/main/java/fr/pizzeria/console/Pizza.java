@@ -1,21 +1,40 @@
 package fr.pizzeria.console;
 
 import fr.pizzeria.utils.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="PIZZA")
 public class Pizza {
+	
+	@Id
+	@Column(name="ID")
 	private int id;
 	//rajout des paramètres before et after pour demander une certaine mise en page
+	
+	@Column(name="CODE")
 	@ToString(before="* ", after="  ")	
 	private String code;
+	
+	@Column(name="NAME")
 	@ToString(before=" -> ", uppercase=false)
 	private String libelle;
+	
+	@Column(name="CATEGORY")
 	@ToString(before=", Cat ")
 	private String categorie;
+	
+	@Column(name="PRICE")
 	@ToString(before=" : ", after=" €")
 	@Rule(min=0)
 	private double prix;
 	
 	private static int cpt = 0;
+	
+	public Pizza(){}
 	
 //constructeur de la classe Pizza sans id, celui-ci est incrémenté
 	
@@ -74,7 +93,6 @@ public class Pizza {
 		//Appel de la méthode stringUtils de la classe StringUtil
 		StringUtils stringUtils = new StringUtils();
 		return stringUtils.stringUtils(this);
-		//return code + " -> " + libelle + " (" + prix + " €)";
 	}
 
 //construction getter et setter

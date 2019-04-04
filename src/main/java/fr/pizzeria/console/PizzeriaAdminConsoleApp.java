@@ -10,14 +10,15 @@ public class PizzeriaAdminConsoleApp {
 
 		Scanner sc = new Scanner(System.in);
 		//IPizzaDao dao = new PizzaMemDao();
-		IPizzaDao dao = new PizzaJdbcDao();
+		//IPizzaDao dao = new PizzaJdbcDao();
+		IPizzaDao dao = new PizzaJpaDao();
 		int valeur = 0;
 
 		// *************************************************************************************//
 		// *************************************************************************************//
 		// *************************************************************************************//
 
-		while (valeur != 99) {
+ 		while (valeur != 99) {
 			System.out.println("\n***** Pizzeria Admninistration *****");
 			System.out.println("1. Lister les pizzas");
 			System.out.println("2. Ajouter une nouvelle pizza");
