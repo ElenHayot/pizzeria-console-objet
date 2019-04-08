@@ -28,7 +28,7 @@ public class AjouterPizzaService extends MenuService{
 		double prixPizza = Double.parseDouble(pP);
 		
 		if(prixPizza <= 0){
-			throw new SavePizzaException("Merci d'entrer un prix un peu plus correct");
+			throw new SavePizzaException("Merci d'entrer un prix positif (autrement vous perdez de l'argent)");
 		}
 		
 		Pizza newPizza = new Pizza(codePizza, nomPizza, catPizza, prixPizza);

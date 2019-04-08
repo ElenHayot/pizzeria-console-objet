@@ -1,10 +1,11 @@
 package dao;
 
+
 import fr.pizzeria.exception.StockageException;
 
 public abstract class MenuService {
 
-	IPizzaDao dao;
+	IPizzaDao dao;	
 	
 	public abstract void executeUC() throws StockageException;
 

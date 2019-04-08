@@ -1,8 +1,5 @@
 package dao;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,22 +11,6 @@ import javax.persistence.TypedQuery;
 import fr.pizzeria.console.Pizza;
 
 public class PizzaJpaDao implements IPizzaDao {
-
-	/*public static void main(String[] args){
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzeria-console-objet");
-		
-		//EntityManager em1 = emf.createEntityManager();
-		/*TypedQuery<Livre> requete = em1.createQuery("select l from Livre l where TITRE='Germinal'", Livre.class);
-		List<Livre> listeLivres = requete.getResultList();
-		listeLivres.forEach(unLivre -> {
-			System.out.println(unLivre.getId() + " - "  + unLivre.getTitre() + " - " + unLivre.getAuteur());
-		});
-		System.out.println("\n\n");*/
-		//em1.close();
-		
-		//emf.close();
-	//}
 
 	public PizzaJpaDao() {
 		

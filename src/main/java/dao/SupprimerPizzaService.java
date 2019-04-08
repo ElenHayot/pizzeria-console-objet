@@ -20,6 +20,7 @@ public class SupprimerPizzaService extends MenuService {
 			throw new DeletePizzaException("La pizza choisie n'existe pas");
 		}
 		
+		
 			//j'applique la méthode de suppression de pizza de la classe PizzaMemDao
 		dao.deletePizza(codePAS);
 		

@@ -35,7 +35,7 @@ public class ModifierPizzaService extends MenuService {
 
 		double nvPrix = Double.parseDouble(nvP);
 		if(nvPrix <= 0){
-			throw new UpdatePizzaException("Merci d'entrer un prix un peu plus correct");
+			throw new UpdatePizzaException("Merci d'entrer un prix positif (autrement vous perdez de l'argent)");
 		}
 		
 			//correction des paramètres de la pizza

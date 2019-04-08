@@ -2,9 +2,15 @@ package fr.pizzeria.console;
 
 import fr.pizzeria.exception.*;
 import java.util.Scanner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dao.*;
 
 public class PizzeriaAdminConsoleApp {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	public static void main(String[] args) {
 
@@ -18,6 +24,7 @@ public class PizzeriaAdminConsoleApp {
 		// *************************************************************************************//
 		// *************************************************************************************//
 
+		
  		while (valeur != 99) {
 			System.out.println("\n***** Pizzeria Admninistration *****");
 			System.out.println("1. Lister les pizzas");
@@ -38,6 +45,7 @@ public class PizzeriaAdminConsoleApp {
 			SupprimerPizzaService supprPizza = new SupprimerPizzaService();
 			supprPizza.setDao(dao);
 
+			try {
 			switch (valeur) {
 
 			// *************************************************************************************//
@@ -58,6 +66,7 @@ public class PizzeriaAdminConsoleApp {
 					ajoutPizza.executeUC();
 				}catch(SavePizzaException e){
 					System.out.println(e.getMessage());
+					LOGGER.error("Une exception est survenue: ", e);
 				}
 
 				break;
@@ -71,6 +80,7 @@ public class PizzeriaAdminConsoleApp {
 					modifPizza.executeUC();
 				}catch(UpdatePizzaException e){
 					System.out.println(e.getMessage());
+					LOGGER.error("Une exception est survenue: ", e);
 				}
 
 				break;
@@ -83,9 +93,14 @@ public class PizzeriaAdminConsoleApp {
 				try{supprPizza.executeUC();
 				}catch(DeletePizzaException e){
 					System.out.println(e.getMessage());
+					LOGGER.error("Une exception est survenue: ", e);
 				}
 
 				break;
+			}
+			} catch (RuntimeException e) {
+				LOGGER.error("Une erreur est survenue :", e);
+				
 			}
 		}
 
