@@ -1,28 +1,30 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.pizzeria.console.Pizza;
 
 public class PizzaMemDao implements IPizzaDao {
 	
-	int l=8;
-	private Pizza[] tableauPizza = new Pizza[100];
+	private List<Pizza> tableauPizza = new ArrayList<>();
 	
 	public PizzaMemDao(){
-		tableauPizza[0]= new Pizza("PEP", "Pépéroni", "Viande", 12.50);
-		tableauPizza[1] = new Pizza("MAR", "Margherita", "Sans Viande", 14.00);
-		tableauPizza[2] = new Pizza("REIN", "La Reine", "Viande", 11.50);
-		tableauPizza[3] = new Pizza("FRO", "La 4 fromages", "Sans Viande", 12.00);
-		tableauPizza[4] = new Pizza("CAN", "La Cannibale", "Viande", 12.50);
-		tableauPizza[5] = new Pizza("SAV", "La Savoyarde", "Poisson", 13.00);
-		tableauPizza[6] = new Pizza("ORI", "L'Orientale", "Poisson", 13.50);
-		tableauPizza[7] = new Pizza("IND", "L'Indienne", "Sans Viande", 14.00);
+		tableauPizza.add(new Pizza("PEP", "Pépéroni", "Viande", 12.50));
+		tableauPizza.add(new Pizza("MAR", "Margherita", "Sans Viande", 14.00));
+		tableauPizza.add(new Pizza("REIN", "La Reine", "Viande", 11.50));
+		tableauPizza.add(new Pizza("FRO", "La 4 fromages", "Sans Viande", 12.00));
+		tableauPizza.add(new Pizza("CAN", "La Cannibale", "Viande", 12.50));
+		tableauPizza.add(new Pizza("SAV", "La Savoyarde", "Poisson", 13.00));
+		tableauPizza.add(new Pizza("ORI", "L'Orientale", "Poisson", 13.50));
+		tableauPizza.add(new Pizza("IND", "L'Indienne", "Sans Viande", 14.00));
 	}
 
 //*********************************************************************************************//
 //*********************************************************************************************//
 	
 	@Override
-	public Pizza[] findAllPizzas() {
+	public List<Pizza> findAllPizzas() {
 		return tableauPizza;
 	}
 
@@ -33,8 +35,8 @@ public class PizzaMemDao implements IPizzaDao {
 	public void saveNewPizza(Pizza pizza) {
 		
 			//Rajout de la pizza à la prochaine ligne du tableau en tant que l-ième élément
-		tableauPizza[l] = new Pizza(pizza.getCode(), pizza.getLibelle(), pizza.getCategorie(), pizza.getPrix());
-		l++;
+		tableauPizza.add(new Pizza(pizza.getCode(), pizza.getLibelle(), pizza.getCategorie(), pizza.getPrix()));
+		//l++;
 		
 	}
 
@@ -44,12 +46,9 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
 		
-			//comparaison (String,String) avec equals et une réponse boolean
 		Pizza p = findPizzaByCode(codePizza);
-		int compteur = p.getId(); 
-		
-			//correction des paramètres de la pizza
-		tableauPizza[compteur] = pizza;
+		int compteur = tableauPizza.indexOf(p); 
+		tableauPizza.set(compteur, pizza);
 		
 	}
 
@@ -59,20 +58,9 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void deletePizza(String codePizza) {
 		
-			//on retrouve la pizza correspondante e ton associe son Id à un compteur
 		Pizza p = findPizzaByCode(codePizza);
-		int compteur = p.getId();
-		
-			//décalage des derniers éléments du tableau vers le premier afin de ne pas avoir de trou dans le tableau
-		for(int i=compteur; i<l-1; i++){
-			tableauPizza[i] = tableauPizza[i+1];
-		}
-		
-			//suppression du dernier élément du tableau (autrement doublon du dernier élément)
-		tableauPizza[l-1] = null;
-			//il y a un élément en moins donc l devient l-1
-		l--;
-		
+		tableauPizza.remove(p);
+
 	}
 
 //*********************************************************************************************//
@@ -82,19 +70,12 @@ public class PizzaMemDao implements IPizzaDao {
 	public Pizza findPizzaByCode(String codePizza) {
 		
 			//recherche de la pizza par son code
-		boolean compare = false;
-		int compteur = 0;
-		for(int i=0; i<l; i++){
-				//comparaison (String, String) avec equals
-			compare = codePizza.equals(tableauPizza[i].getCode());
-			if(compare==true){
-				break;	//sortie de la boucle for dès que boolean=true pour que le compteur s'arrête
-			}
-			compteur++;
+		Pizza pizzaCompt = new Pizza();
+		for(Pizza p:tableauPizza){
+			if(p.getCode().equals(codePizza))
+				pizzaCompt = p;
 		}
 		
-			//retourne la pizza placée dans la case compteur du tableau
-		Pizza pizzaCompt = tableauPizza[compteur];
 		return pizzaCompt; 
 	}
 
@@ -104,11 +85,11 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public boolean pizzaExists(String codePizza) {
 		
-		for(int i=0; i<l; i++){
-			if(tableauPizza[i].getCode().equals(codePizza)){
+		for(Pizza p: tableauPizza){
+			if(p.getCode().equals(codePizza))
 				return true;
-			}
 		}
+
 		return false;
 	}
 

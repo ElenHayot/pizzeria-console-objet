@@ -30,7 +30,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 	
 	
 	@Override
-	public Pizza[] findAllPizzas() {
+	public List<Pizza> findAllPizzas() {
 		
 		List<Pizza> listePizzas = new ArrayList<>();
 		//InputStream input = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
@@ -41,7 +41,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			//connect = DriverManager.getConnection(property.getProperty("jdbcUrl"), property.getProperty("id"), property.getProperty("password"));
 			//property.load(input);
 			connect = DriverManager.getConnection(jdbcUrl, "root", "");
-			statement = connect.prepareStatement("select * from pizzas");
+			statement = connect.prepareStatement("select * from pizza");
 			ResultSet result = statement.executeQuery();
 			
 			while(result.next()){
@@ -58,14 +58,10 @@ public class PizzaJdbcDao implements IPizzaDao {
 			
 		}catch(SQLException e){
 			System.out.println("Problème de communication avec la base de données");
-		}/*catch(IOException e){
-			e.getMessage();
-		}*/
+		}
 		
-		Pizza[] tab = new Pizza[listePizzas.size()];
-		tab = listePizzas.toArray(tab);
 		
-		return tab;
+		return listePizzas;
 		
 	}
 

@@ -17,18 +17,16 @@ public class PizzaJpaDao implements IPizzaDao {
 	}
 	
 	@Override
-	public Pizza[] findAllPizzas() {
+	public List<Pizza> findAllPizzas() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzeria-console-objet");
 		EntityManager em1 = emf.createEntityManager();
 		
 		TypedQuery<Pizza> requete = em1.createQuery("select p from Pizza p", Pizza.class);
 		List<Pizza> pizzaList = requete.getResultList();
-		Pizza[] tab = new Pizza[pizzaList.size()];
-		tab = pizzaList.toArray(tab);
 		
 		em1.close();
 		emf.close();
-		return tab;
+		return pizzaList;
 	}
 
 	@Override

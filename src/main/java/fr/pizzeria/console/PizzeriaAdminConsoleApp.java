@@ -16,8 +16,8 @@ public class PizzeriaAdminConsoleApp {
 
 		Scanner sc = new Scanner(System.in);
 		//IPizzaDao dao = new PizzaMemDao();
-		//IPizzaDao dao = new PizzaJdbcDao();
-		IPizzaDao dao = new PizzaJpaDao();
+		IPizzaDao dao = new PizzaJdbcDao();
+		//IPizzaDao dao = new PizzaJpaDao();
 		int valeur = 0;
 
 		// *************************************************************************************//
