@@ -11,6 +11,7 @@ public class ListerPizzaService extends MenuService {
 
 			List<Pizza> tabPizza = dao.findAllPizzas();
 			
+			System.out.println("\nVoici la liste des pizzas enregistrées dans la base de données:");
 			for(Pizza p:tabPizza)
 				System.out.println(p);
 		

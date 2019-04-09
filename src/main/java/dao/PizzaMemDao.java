@@ -34,9 +34,7 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) {
 		
-			//Rajout de la pizza à la prochaine ligne du tableau en tant que l-ième élément
 		tableauPizza.add(new Pizza(pizza.getCode(), pizza.getLibelle(), pizza.getCategorie(), pizza.getPrix()));
-		//l++;
 		
 	}
 
@@ -69,7 +67,6 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 		
-			//recherche de la pizza par son code
 		Pizza pizzaCompt = new Pizza();
 		for(Pizza p:tableauPizza){
 			if(p.getCode().equals(codePizza))

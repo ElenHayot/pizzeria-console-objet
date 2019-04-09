@@ -1,6 +1,8 @@
 package dao;
 
 import fr.pizzeria.console.Pizza;
+import fr.pizzeria.exception.AccesDonneesException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -57,7 +59,7 @@ public class PizzaJdbcDao implements IPizzaDao {
 			connect.close();
 			
 		}catch(SQLException e){
-			System.out.println("Problème de communication avec la base de données");
+			throw new AccesDonneesException("Problème de communication avec la base de données", e);
 		}
 		
 		

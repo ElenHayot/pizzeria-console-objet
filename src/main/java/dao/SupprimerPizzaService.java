@@ -23,6 +23,7 @@ public class SupprimerPizzaService extends MenuService {
 		
 			//j'applique la méthode de suppression de pizza de la classe PizzaMemDao
 		dao.deletePizza(codePAS);
+		System.out.println("\nLa pizza a bien été supprimée de la base de données.");
 		
 		
 	}

@@ -15,8 +15,8 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		//IPizzaDao dao = new PizzaMemDao();
-		IPizzaDao dao = new PizzaJdbcDao();
+		IPizzaDao dao = new PizzaMemDao();
+		//IPizzaDao dao = new PizzaJdbcDao();
 		//IPizzaDao dao = new PizzaJpaDao();
 		int valeur = 0;
 
@@ -50,7 +50,7 @@ public class PizzeriaAdminConsoleApp {
 
 			// *************************************************************************************//
 
-			// Cas 1: afficher les pizza: appelle de la méthode afficherPizza()
+			// Cas 1: afficher les pizzas: appelle de la méthode afficherPizza()
 			case 1:
 				System.out.println("\nListe des pizzas");
 				listePizzas.executeUC();
@@ -65,7 +65,7 @@ public class PizzeriaAdminConsoleApp {
 				try{
 					ajoutPizza.executeUC();
 				}catch(SavePizzaException e){
-					System.out.println(e.getMessage());
+					System.err.println(e.getMessage());
 					LOGGER.error("Une exception est survenue: ", e);
 				}
 
@@ -79,7 +79,7 @@ public class PizzeriaAdminConsoleApp {
 				try{
 					modifPizza.executeUC();
 				}catch(UpdatePizzaException e){
-					System.out.println(e.getMessage());
+					System.err.println(e.getMessage());
 					LOGGER.error("Une exception est survenue: ", e);
 				}
 
@@ -92,7 +92,7 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("\nSuppression d'une pizza");
 				try{supprPizza.executeUC();
 				}catch(DeletePizzaException e){
-					System.out.println(e.getMessage());
+					System.err.println(e.getMessage());
 					LOGGER.error("Une exception est survenue: ", e);
 				}
 
@@ -100,8 +100,9 @@ public class PizzeriaAdminConsoleApp {
 			}
 			} catch (RuntimeException e) {
 				LOGGER.error("Une erreur est survenue :", e);
-				
+				System.err.println(e.getMessage());
 			}
+			
 		}
 
 		if (valeur == 99) {

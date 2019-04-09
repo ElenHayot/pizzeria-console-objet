@@ -13,6 +13,7 @@ public class Pizza {
 	@Id
 	@Column(name="ID")
 	private int id;
+	
 	//rajout des paramètres before et after pour demander une certaine mise en page
 	
 	@Column(name="CODE")
@@ -142,6 +143,48 @@ public class Pizza {
 
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categorie == null) ? 0 : categorie.hashCode());
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(prix);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pizza other = (Pizza) obj;
+		if (categorie == null) {
+			if (other.categorie != null)
+				return false;
+		} else if (!categorie.equals(other.categorie))
+			return false;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
+		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix))
+			return false;
+		return true;
 	}
 
 	

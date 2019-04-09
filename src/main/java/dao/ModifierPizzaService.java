@@ -9,7 +9,7 @@ public class ModifierPizzaService extends MenuService {
 	Scanner sc = new Scanner(System.in);
 	
 	@Override
-	public void executeUC() throws UpdatePizzaException{
+	public void executeUC() throws UpdatePizzaException {
 		System.out.println("Veuillez choisir le code de la pizza à modifier: ");
 		String codePAM = sc.nextLine().toUpperCase();
 		
@@ -41,6 +41,7 @@ public class ModifierPizzaService extends MenuService {
 			//correction des paramètres de la pizza
 		Pizza newPizza = new Pizza(nvCode, nvNom, nvCategorie, nvPrix);
 		dao.updatePizza(codePAM, newPizza);
+		System.out.println("\nLa pizza " + newPizza.getLibelle() + " a bien été modifiée dans la base de données.");
 		
 	}
 	

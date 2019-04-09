@@ -35,6 +35,7 @@ public class AjouterPizzaService extends MenuService{
 		
 			//j'applique la méthode de rajout d'une nouvelle pizza				 
 		dao.saveNewPizza(newPizza); 
+		System.out.println("\nLa pizza " + newPizza.getLibelle() + " a bien été rajoutée à la base de données.");
 		
 		
 	}

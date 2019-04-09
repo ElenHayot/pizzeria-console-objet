@@ -21,19 +21,19 @@
 	<!-- redirection vers un fichier -->
 	<appender name="FILE-APP" class="ch.qos.logback.core.FileAppender">
 		<file>app.log</file>
-		<append>false</append>
+		<append>true</append>
 		<immediateFlush>true</immediateFlush>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	
-	<!-- politique de log pour les classes du package fr.pizzeria.console -->
+	<!-- redirection des exceptions issues des package org. vers le fichier app.log -->
 	<logger name="org" level="INFO" additivity="false">
 		<appender-ref ref="FILE-APP" />
 	</logger>
 
-	<!-- règle de logs par défaut. Ici : niveau INFO vers la sortie standard -->
+	<!-- règle de logs par défaut. Ici : niveau ERROR vers le fichier exception.log -->
 	<root level="ERROR">
 		<appender-ref ref="FILE-ERR" />
 	</root>
